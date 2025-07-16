@@ -20,10 +20,4 @@ public class Downloader : MonoBehaviour
             }
         });
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
