@@ -18,24 +18,24 @@ public class GeminiCardGenerator : MonoBehaviour
     // Gemini APIに送信するプロンプト
     [TextArea(3, 10)]
     public string geminiPrompt = @"
-以下の写真に写っている人またはペットの特徴を読み取り、カードゲームのパラメータとして「頭脳」「運動」「運」の3つの数値をそれぞれ1から100の範囲で評価してください。各数値は整数でお願いします。また、そのキャラクターに合う1、2文の短いフレーバーテキストも作成してください。
+        以下の写真に写っている人またはペットの特徴を読み取り、カードゲームのパラメータとして「頭脳」「運動」「運」の3つの数値をそれぞれ1から100の範囲で評価してください。各数値は整数でお願いします。また、そのキャラクターに合う1、2文の短いフレーバーテキストも作成してください。
 
-出力はJSON形式でお願いします。JSONのキーは以下の通りにしてください:
-- 頭脳: `intellect`
-- 運動: `athleticism`
-- 運: `luck`
-- フレーバーテキスト: `flavor_text`
+        出力はJSON形式でお願いします。JSONのキーは以下の通りにしてください:
+        - 頭脳: `intellect`
+        - 運動: `athleticism`
+        - 運: `luck`
+        - フレーバーテキスト: `flavor_text`
 
-例:
-```json
-{
-  ""intellect"": 85,
-  ""athleticism"": 70,
-  ""luck"": 60,
-  ""flavor_text"": ""鋭い洞察力で戦場を支配し、困難な状況も乗り越える賢者。""
-}
-```
-";
+        例:
+        ```json
+        {
+          ""intellect"": 85,
+          ""athleticism"": 70,
+          ""luck"": 60,
+          ""flavor_text"": ""鋭い洞察力で戦場を支配し、困難な状況も乗り越える賢者。""
+        }
+        ```
+    ";
 
     // カードデータを受け取るためのイベント
     public event Action<CardData> OnCardDataGenerated;
