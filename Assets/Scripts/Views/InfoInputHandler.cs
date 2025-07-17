@@ -9,16 +9,18 @@ public class InfoInputHandler : MonoBehaviour
     [SerializeField] private GameObject cardGeneratingPanel;
     [SerializeField] private GameObject cardResultPanel;
 
-    [SerializeField] private Text cardTitle;
-    [SerializeField] private Text cardExplanation;
+    [SerializeField] private Text cardTitleText;
+    [SerializeField] private Text cardExplanationText;
     [SerializeField] private Image imageChosen;
 
     private ImageExtractor _imageExtractor;
+    private PromptFormatter _promptFormatter;
     
     // Start is called before the first frame update
     void Start()
     {
         _imageExtractor = new ImageExtractor();
+        _promptFormatter = new PromptFormatter();
     }
 
     // Update is called once per frame
@@ -63,6 +65,10 @@ public class InfoInputHandler : MonoBehaviour
     // 「この内容で作成する」ボタンが押されたら実行される
     public void OnClickSubmitCard()
     {
+        string cardTitle = cardTitleText.text.ToString();
+        string cardExplanation = cardExplanationText.text.ToString();
+        Texture2D tex = imageChosen.sprite.texture;
         
+        _promptFormatter.OrganizePrompt(cardTitle, cardExplanation, tex);
     } 
 }

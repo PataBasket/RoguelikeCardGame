@@ -29,8 +29,13 @@ public class PromptFormatter
 
     private Texture2D _tex = new Texture2D(2,2);
 
+    public PromptFormatter()
+    {
+        _geminiCardGenerator = new GeminiCardGenerator();
+    }
+
     // Start を UniTask に置き換え
-    async UniTaskVoid OrganizePrompt(Texture2D tex)
+    public async UniTaskVoid OrganizePrompt(string cardTitle, string cardExplanation, Texture2D tex)
     {
         // // Resources から画像読み込み
         // Texture2D tex = Resources.Load<Texture2D>(resourceImageName);

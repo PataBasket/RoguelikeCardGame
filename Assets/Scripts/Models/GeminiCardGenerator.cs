@@ -8,8 +8,7 @@ public class GeminiCardGenerator
 {
     private string _apiKey;
     private string ApiUrl => $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={_apiKey}";
-
-
+    
     public GeminiCardGenerator()
     {
         LoadApiKey();
@@ -18,7 +17,7 @@ public class GeminiCardGenerator
     [System.Serializable]
     public class ApiConfig
     {
-        public string apiKey;
+        public string geminiApiKey;
     }
     
     private void LoadApiKey()
@@ -28,7 +27,7 @@ public class GeminiCardGenerator
         if (configFile != null)
         {
             var config = JsonUtility.FromJson<ApiConfig>(configFile.text);
-            _apiKey = config.apiKey;
+            _apiKey = config.geminiApiKey;
         }
         else
         {
