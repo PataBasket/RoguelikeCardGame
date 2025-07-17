@@ -6,13 +6,34 @@ using System.Text;
 
 public class GeminiCardGenerator
 {
-    private readonly string _apiKey;
-    private const string ApiUrl =
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
+    private string _apiKey;
+    private string ApiUrl => $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={_apiKey}";
 
-    public GeminiCardGenerator(string apiKey)
+
+    public GeminiCardGenerator()
     {
-        _apiKey = apiKey;
+        LoadApiKey();
+    }
+
+    [System.Serializable]
+    public class ApiConfig
+    {
+        public string apiKey;
+    }
+    
+    private void LoadApiKey()
+    {
+        // Resourcesフォルダ内のApiConfig.jsonファイルを読み込む
+        TextAsset configFile = Resources.Load<TextAsset>("ApiConfig");
+        if (configFile != null)
+        {
+            var config = JsonUtility.FromJson<ApiConfig>(configFile.text);
+            _apiKey = config.apiKey;
+        }
+        else
+        {
+            Debug.LogError("ApiConfig.json not found in Resources folder.");
+        }
     }
 
     public async UniTask<CardData> GenerateCardDataAsync(Texture2D texture, string prompt)
@@ -48,7 +69,7 @@ public class GeminiCardGenerator
         Debug.Log("Request JSON:\n" + requestJson);
 
         // 5. リクエスト送信
-        using var req = new UnityWebRequest(ApiUrl + _apiKey, "POST");
+        using var req = new UnityWebRequest(ApiUrl, "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(requestJson);
         req.uploadHandler   = new UploadHandlerRaw(bodyRaw);
         req.downloadHandler = new DownloadHandlerBuffer();
