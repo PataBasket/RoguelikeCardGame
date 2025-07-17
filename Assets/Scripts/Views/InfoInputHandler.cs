@@ -36,7 +36,7 @@ public class InfoInputHandler : MonoBehaviour
     //　「画像を選択」ボタンが押されたら実行される
     public void OnClickChoosePicture()
     {
-        ImageExtractor.ExtractImage(
+        _imageExtractor.ExtractImage(
             texture =>
             {
                 // Texture2D → Sprite に変換

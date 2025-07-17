@@ -15,7 +15,7 @@ public class ImageExtractor
     /// onSuccess: 正常に読み込めたTexture2D
     /// onError  : エラーメッセージ
     /// </summary>
-    public static void ExtractImage(Action<Texture2D> onSuccess, Action<string> onError)
+    public void ExtractImage(Action<Texture2D> onSuccess, Action<string> onError)
     {
         string path = null;
 
@@ -92,7 +92,7 @@ public class ImageExtractor
     }
 
     // GCDを計算するヘルパー
-    private static int GreatestCommonDivisor(int a, int b)
+    private int GreatestCommonDivisor(int a, int b)
     {
         return b == 0 ? a : GreatestCommonDivisor(b, a % b);
     }
