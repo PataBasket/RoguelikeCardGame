@@ -224,7 +224,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1599047626}
-  - component: {fileID: 1599047625}
   - component: {fileID: 1599047624}
   m_Layer: 0
   m_Name: GeminiCardGenerator
@@ -245,29 +244,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b897104939d48e8a95af06b74f33dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: {fileID: 1599047625}
---- !u!114 &1599047625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599047623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeea0f800245144919d0ede4b5af3719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   geminiApiKey: AIzaSyCxOGsSUFOfNG5b_nT5SbhL4osQ8tm2zbc
-  geminiPrompt: "\n        \u4EE5\u4E0B\u306E\u5199\u771F\u306B\u5199\u3063\u3066\u3044\u308B\u4EBA\u307E\u305F\u306F\u30DA\u30C3\u30C8\u306E\u7279\u5FB4\u3092\u8AAD\u307F\u53D6\u308A\u3001\u30AB\u30FC\u30C9\u30B2\u30FC\u30E0\u306E\u30D1\u30E9\u30E1\u30FC\u30BF\u3068\u3057\u3066\u300C\u982D\u8133\u300D\u300C\u904B\u52D5\u300D\u300C\u904B\u300D\u306E3\u3064\u306E\u6570\u5024\u3092\u305D\u308C\u305E\u308C1\u304B\u3089100\u306E\u7BC4\u56F2\u3067\u8A55\u4FA1\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u5404\u6570\u5024\u306F\u6574\u6570\u3067\u304A\u9858\u3044\u3057\u307E\u3059\u3002\u307E\u305F\u3001\u305D\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u306B\u5408\u30461\u30012\u6587\u306E\u77ED\u3044\u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8\u3082\u4F5C\u6210\u3057\u3066\u304F\u3060\u3055\u3044\u3002\n\n       
-    \u51FA\u529B\u306FJSON\u5F62\u5F0F\u3067\u304A\u9858\u3044\u3057\u307E\u3059\u3002JSON\u306E\u30AD\u30FC\u306F\u4EE5\u4E0B\u306E\u901A\u308A\u306B\u3057\u3066\u304F\u3060\u3055\u3044:\n       
-    - \u982D\u8133: `intellect`\n        - \u904B\u52D5: `athleticism`\n        -
-    \u904B: `luck`\n        - \u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8:
-    `flavor_text`\n\n        \u4F8B:\n        ```json\n        {\n        \"intellect\":
-    85,\n        \"athleticism\": 70,\n        \"luck\": 60,\n        \"flavor_text\":
-    \"\u92ED\u3044\u6D1E\u5BDF\u529B\u3067\u6226\u5834\u3092\u652F\u914D\u3057\u3001\u56F0\u96E3\u306A\u72B6\u6CC1\u3082\u4E57\u308A\u8D8A\u3048\u308B\u8CE2\u8005\u3002\"\n       
-    }\n        ```\n        "
-  imageFormat: 0
+  resourceImageName: testPhoto
+  geminiPrompt: "@\"\r\n        \u4EE5\u4E0B\u306E\u5199\u771F\u306B\u5199\u3063\u3066\u3044\u308B\u4EBA\u307E\u305F\u306F\u30DA\u30C3\u30C8\u306E\u7279\u5FB4\u3092\u8AAD\u307F\u53D6\u308A\u3001\u30AB\u30FC\u30C9\u30B2\u30FC\u30E0\u306E\u30D1\u30E9\u30E1\u30FC\u30BF\u3068\u3057\u3066\u300C\u982D\u8133\u300D\u300C\u904B\u52D5\u300D\u300C\u904B\u300D\u306E3\u3064\u306E\u6570\u5024\u3092\u305D\u308C\u305E\u308C1\u304B\u3089100\u306E\u7BC4\u56F2\u3067\u8A55\u4FA1\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u5404\u6570\u5024\u306F\u6574\u6570\u3067\u304A\u9858\u3044\u3057\u307E\u3059\u3002\u307E\u305F\u3001\u305D\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u306B\u5408\u30461\u30012\u6587\u306E\u77ED\u3044\u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8\u3082\u4F5C\u6210\u3057\u3066\u304F\u3060\u3055\u3044\u3002\r\n\r\n       
+    \u51FA\u529B\u306FJSON\u5F62\u5F0F\u3067\u304A\u9858\u3044\u3057\u307E\u3059\u3002JSON\u306E\u30AD\u30FC\u306F\u4EE5\u4E0B\u306E\u901A\u308A\u306B\u3057\u3066\u304F\u3060\u3055\u3044:\r\n       
+    - \u982D\u8133: `intellect`\r\n        - \u904B\u52D5: `athleticism`\r\n       
+    - \u904B: `luck`\r\n        - \u30D5\u30EC\u30FC\u30D0\u30FC\u30C6\u30AD\u30B9\u30C8:
+    `flavor_text`\r\n\r\n        \u4F8B:\r\n        ```json\r\n        {\r\n         
+    \"\"intellect\"\": 85,\r\n          \"\"athleticism\"\": 70,\r\n          \"\"luck\"\":
+    60,\r\n          \"\"flavor_text\"\": \"\"\u92ED\u3044\u6D1E\u5BDF\u529B\u3067\u6226\u5834\u3092\u652F\u914D\u3057\u3001\u56F0\u96E3\u306A\u72B6\u6CC1\u3082\u4E57\u308A\u8D8A\u3048\u308B\u8CE2\u8005\u3002\"\"\r\n       
+    }\r\n        ```\r\n    \""
+  intellectText: {fileID: 0}
+  athleticismText: {fileID: 0}
+  luckText: {fileID: 0}
+  flavorText: {fileID: 0}
 --- !u!4 &1599047626
 Transform:
   m_ObjectHideFlags: 0
