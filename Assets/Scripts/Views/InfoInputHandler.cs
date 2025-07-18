@@ -67,11 +67,15 @@ public class InfoInputHandler : MonoBehaviour
         string cardExplanation = cardExplanationText.text;
         Texture2D tex = imageChosen.sprite.texture;
         
-        var cardData = await _promptFormatter.OrganizePrompt(cardTitle, cardExplanation, tex);
-        _cardInfoDisplay.DisplayCardData(cardData);
-        
-        // 必要に応じて次のパネル切り替えなど
+        // カード作成中画面に切り替えてレスポンスを待つ
         imageSelectionPanel.SetActive(false);
         cardGeneratingPanel.SetActive(true);
+        var cardData = await _promptFormatter.OrganizePrompt(cardTitle, cardExplanation, tex);
+        
+        // レスポンスを反映させてカード結果画面に切り替える
+        _cardInfoDisplay.DisplayCardData(cardData, cardTitle, tex);
+        cardGeneratingPanel.SetActive(false);
+        cardResultPanel.SetActive(true);
+        
     } 
 }
