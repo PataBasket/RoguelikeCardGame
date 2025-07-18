@@ -40,7 +40,7 @@ public class PromptFormatter
     }
 
     // Start を UniTask に置き換え
-    public async UniTaskVoid OrganizePrompt(string cardTitle, string cardExplanation, Texture2D tex)
+    public async UniTask<GeminiCardGenerator.CardData> OrganizePrompt(string cardTitle, string cardExplanation, Texture2D tex)
     {
         _tex = tex;
         _cardTitle = cardTitle;
@@ -49,26 +49,19 @@ public class PromptFormatter
         if (_tex == null)
         {
             Debug.LogError("画像が見つかりません。");
-            return;
+            return null;
         }
 
         try
         {
             // カードデータ生成を待機
             var card = await _geminiCardGenerator.GenerateCardDataAsync(_tex, _geminiPrompt);
-
-            // UI 更新
-            DisplayCardData(card);
+            return card;
         }
         catch (Exception ex)
         {
             Debug.LogError("カード生成に失敗: " + ex.Message);
+            return null;
         }
-    }
-
-    private void DisplayCardData(GeminiCardGenerator.CardData data)
-    {
-        Debug.Log($"カード表示: 頭脳={data.intellect}, 運動={data.athleticism}, 運={data.luck}");
-        Debug.Log($"フレーバーテキスト: {data.flavor_text}");
     }
 }

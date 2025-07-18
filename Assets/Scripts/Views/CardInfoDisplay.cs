@@ -27,7 +27,7 @@ public class CardInfoDisplay : MonoBehaviour
         
     }
     
-    private void DisplayCardData(GeminiCardGenerator.CardData data)
+    public void DisplayCardData(GeminiCardGenerator.CardData data)
     {
         Debug.Log($"カード表示: 頭脳={data.intellect}, 運動={data.athleticism}, 運={data.luck}");
         Debug.Log($"フレーバーテキスト: {data.flavor_text}");
