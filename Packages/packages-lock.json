@@ -8,13 +8,13 @@
       "hash": "f213ff497e4ff462a77319cf677cf20cc0860ca9"
     },
     "com.google.external-dependency-manager": {
-      "version": "file:C:/Users/baske/Downloads/com.google.external-dependency-manager-1.2.186.tgz",
+      "version": "file:../ExternalPackages/com.google.external-dependency-manager-1.2.186.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.app": {
-      "version": "file:C:/Users/baske/Downloads/com.google.firebase.app-12.10.0.tgz",
+      "version": "file:../ExternalPackages/com.google.firebase.app-12.10.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -22,7 +22,7 @@
       }
     },
     "com.google.firebase.auth": {
-      "version": "file:C:/Users/baske/Downloads/com.google.firebase.auth-12.10.0.tgz",
+      "version": "file:../ExternalPackages/com.google.firebase.auth-12.10.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -30,7 +30,7 @@
       }
     },
     "com.google.firebase.storage": {
-      "version": "file:C:/Users/baske/Downloads/com.google.firebase.storage-12.10.0.tgz",
+      "version": "file:../ExternalPackages/com.google.firebase.storage-12.10.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
