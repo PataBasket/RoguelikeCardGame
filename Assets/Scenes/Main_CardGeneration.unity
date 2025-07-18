@@ -1464,7 +1464,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1535228987}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1823863549}
+        m_TargetAssemblyTypeName: InfoInputHandler, Assembly-CSharp
+        m_MethodName: OnClickChoosePicture
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1535228987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,12 +2009,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6969e3e9a51d741b5565365cdeabe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageSelectionPanel: {fileID: 0}
-  cardGeneratingPanel: {fileID: 0}
-  cardResultPanel: {fileID: 0}
-  cardTitle: {fileID: 0}
-  cardExplanation: {fileID: 0}
-  imageChosen: {fileID: 0}
+  imageSelectionPanel: {fileID: 2046895495}
+  cardGeneratingPanel: {fileID: 541334416}
+  cardResultPanel: {fileID: 787864650}
+  cardTitleText: {fileID: 853052220}
+  cardExplanationText: {fileID: 487374832}
+  imageChosen: {fileID: 61042715}
 --- !u!1 &1890237971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,7 +2097,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1890237974}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1823863549}
+        m_TargetAssemblyTypeName: InfoInputHandler, Assembly-CSharp
+        m_MethodName: OnClickSubmitCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1890237974
 MonoBehaviour:
   m_ObjectHideFlags: 0
