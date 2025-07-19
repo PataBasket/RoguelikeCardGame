@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class CardSelectionCanvasView : MonoBehaviour
 {
-     [Header("UI References")]
+    [Header("UI References")]
+    [SerializeField] private GameObject cardLoadPanel; // カード選択パネルのルートGameObject
     [SerializeField] private GameObject cardListItemPrefab; // ScrollViewに配置するカードアイテムのルートプレハブ
     [SerializeField] private Transform scrollViewContent; // ScrollViewのContent Transform
 
@@ -25,9 +26,15 @@ public class CardSelectionCanvasView : MonoBehaviour
     [SerializeField] private GameObject SelectCardCanvas; // バトル開始画面のキャンバス
     [SerializeField] private GameObject BattleCanvas; // バトル開始画面のキャンバス
     [SerializeField] private Button confirmBattleButton; // メインの「バトル開始」ボタン
-    
+
     [Header("3パラメータのUIオブジェクト")]
-    [SerializeField] private Text modalCardStatsText; // HP, 攻撃力などを表示
+    [SerializeField] private Text intellect; // 頭脳の攻撃力
+    [SerializeField] private Text intellect_skill; // 頭脳の攻撃名
+    [SerializeField] private Text athleticism; // 運動の攻撃力
+    [SerializeField] private Text athleticism_skill; // 運動の攻撃名
+    [SerializeField] private Text luck; // 運の攻撃力
+    [SerializeField] private Text luck_skill; // 運の攻撃名 
+
 
     // イベント発行用Subject
     public Subject<CardSelectManager.CardInfo> OnCardListItemSelected = new Subject<CardSelectManager.CardInfo>();
@@ -92,13 +99,23 @@ public class CardSelectionCanvasView : MonoBehaviour
         }
     }
 
+    public void ShowLoadPanel(bool show)
+    {
+        cardLoadPanel.SetActive(show);
+    }
+
     public void ShowModalPanel(CardSelectManager.CardInfo cardData)
     {
         _currentModalCardData = cardData;
         modalCardImage.sprite = cardData.cardImage;
         modalCardTitleText.text = cardData.cardTitle;
         modalCardDescriptionText.text = cardData.description;
-        modalCardStatsText.text = $"HP: {cardData.hp}\nRock Atk: {cardData.intellect}\nScissors Atk: {cardData.athleticism}\nPaper Atk: {cardData.luck}";
+        intellect.text = cardData.intellect.ToString();
+        intellect_skill.text = cardData.intellect_skill;
+        athleticism.text = cardData.athleticism.ToString();
+        athleticism_skill.text = cardData.athleticism_skill;
+        luck.text = cardData.luck.ToString();
+        luck_skill.text = cardData.luck_skill;
         modalPanelObject.SetActive(true);
     }
 
@@ -118,9 +135,18 @@ public class CardSelectionCanvasView : MonoBehaviour
     {
         SoundManager.Instance?.PlayBGM(SoundManager.BGMData.BGMTYPE.Battle);
 
+        ChildDestroy();
         BattleCanvas.SetActive(true);
         HideModalPanel();
         SelectCardCanvas.SetActive(false);
+    }
+
+    public void ChildDestroy()
+    {
+        foreach (Transform child in scrollViewContent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     void OnDestroy()

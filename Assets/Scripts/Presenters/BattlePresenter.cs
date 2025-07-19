@@ -28,25 +28,23 @@ public class BattlePresenter : MonoBehaviour
     void Awake()
     {
         // 初期ステータスが設定されていなければデフォルト値を設定
-        if (InitialPlayerStatus == null)
+        if (cardSelectManager.SelectedCard.Value != null)
         {
-            if (cardSelectManager.SelectedCard.Value != null)
-            {
-                // 選択されたカードのデータを基に初期ステータスを設定
-                var selectedCard = cardSelectManager.SelectedCard.Value;
-                InitialPlayerStatus = new BattleModel.CharacterStatus(
-                    selectedCard.hp,
-                    selectedCard.intellect,
-                    selectedCard.athleticism,
-                    selectedCard.luck
-                );
-            }
-            else
-            {
-                // デフォルトの初期ステータスを設定
-                InitialPlayerStatus = new BattleModel.CharacterStatus(100, 20, 25, 30); // HP, グー, チョキ, パー
-            }
+            // 選択されたカードのデータを基に初期ステータスを設定
+            var selectedCard = cardSelectManager.SelectedCard.Value;
+            InitialPlayerStatus = new BattleModel.CharacterStatus(
+                selectedCard.hp,
+                selectedCard.intellect,
+                selectedCard.athleticism,
+                selectedCard.luck
+            );
         }
+        else
+        {
+            // デフォルトの初期ステータスを設定
+            InitialPlayerStatus = new BattleModel.CharacterStatus(100, 20, 25, 30); // HP, グー, チョキ, パー
+        }
+
         if (InitialEnemyStatus == null)
         {
             InitialEnemyStatus = new BattleModel.CharacterStatus(80, 15, 20, 25); // HP, グー, チョキ, パー
