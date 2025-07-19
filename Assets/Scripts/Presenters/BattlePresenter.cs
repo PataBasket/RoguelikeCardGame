@@ -89,6 +89,8 @@ public class BattlePresenter : MonoBehaviour
 
     private void OnPlayerInput(BattleModel.HandType playerHand)
     {
+        SoundManager.Instance?.PlaySE(SoundManager.SEData.SETYPE.Punch);
+        
         // プレイヤー入力があったらボタンを一時的に無効にする
         playerView.SetButtonsInteractable(false);
 

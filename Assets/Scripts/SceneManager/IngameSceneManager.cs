@@ -37,6 +37,8 @@ public class IngameSceneManager : MonoBehaviour
 
     public void ChangeScene(InGameState state, Parameter param = null)
     {
+        SoundManager.Instance?.PlaySE(SoundManager.SEData.SETYPE.NormalButton);
+
         _currentState = state;
         _currentParam = param;
         SceneManager.LoadScene(state.ToString());

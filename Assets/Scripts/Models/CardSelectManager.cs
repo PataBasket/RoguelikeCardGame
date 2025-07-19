@@ -67,6 +67,8 @@ public class CardSelectManager : MonoBehaviour
     /// <param name="cardData">選択されたカードデータ</param>
     private void HandleCardSelection(CardSequence.CardData cardData)
     {
+        SoundManager.Instance?.PlaySE(SoundManager.SEData.SETYPE.NormalButton); // カード選択音を再生
+
         _selectedCard.Value = cardData; // ReactivePropertyの値を更新
         cardSelectionCanvasView.SetSelectedDeckCard(_selectedCard.Value); // 選択されたカードをデッキスロットに表示
         cardSelectionCanvasView.HideModalPanel(); // モーダルを閉じる

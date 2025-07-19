@@ -14,11 +14,17 @@ public class EditDeckSceneManager : MonoBehaviour
     void Start()
     {
         lobbyButton?.onClick.AddListener(OnLobbyButtonClicked);
-        lobbyButton2?.onClick.AddListener(OnLobbyButtonClicked);
+        lobbyButton2?.onClick.AddListener(OnAfterResultLobbyButtonClicked);
     }
 
     private void OnLobbyButtonClicked()
     {
+        IngameSceneManager.Instance.ChangeScene(IngameSceneManager.InGameState.Lobby);
+    }
+
+    private void OnAfterResultLobbyButtonClicked()
+    {
+        SoundManager.Instance?.PlayBGM(SoundManager.BGMData.BGMTYPE.Title);
         IngameSceneManager.Instance.ChangeScene(IngameSceneManager.InGameState.Lobby);
     }
 }
