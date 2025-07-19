@@ -1,41 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardInfoDisplay : MonoBehaviour
 {
     // UI 更新用（必要に応じて Inspector から紐づけ）
     [Header("UI Elements")]
     [SerializeField]
-    private UnityEngine.UI.Text intellectText;
+    private Text titleText;
+    [SerializeField] 
+    private Image mainImage;
     [SerializeField]
-    private UnityEngine.UI.Text athleticismText;
+    private Text intellectText;
     [SerializeField]
-    private UnityEngine.UI.Text luckText;
+    private Text athleticismText;
     [SerializeField]
-    private UnityEngine.UI.Text flavorText;
+    private Text luckText;
+    [SerializeField]
+    private Text flavorText;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
-    private void DisplayCardData(GeminiCardGenerator.CardData data)
+    public void DisplayCardData(GeminiCardGenerator.CardData data, string cardTitleText, Texture2D tex)
     {
         Debug.Log($"カード表示: 頭脳={data.intellect}, 運動={data.athleticism}, 運={data.luck}");
         Debug.Log($"フレーバーテキスト: {data.flavor_text}");
 
         // Inspector にセットした Text コンポーネントに出力
+        if (titleText       != null) titleText.text       = cardTitleText;
         if (intellectText   != null) intellectText.text   = $"頭脳: {data.intellect}";
         if (athleticismText != null) athleticismText.text = $"運動: {data.athleticism}";
         if (luckText        != null) luckText.text        = $"運: {data.luck}";
         if (flavorText      != null) flavorText.text      = data.flavor_text;
+        
+        // Texture2D → Sprite に変換
+        if (mainImage != null)
+        {
+            var sprite = Sprite.Create(
+                tex,
+                new Rect(0, 0, tex.width, tex.height),
+                new Vector2(0.5f, 0.5f)
+            );
+            mainImage.sprite = sprite;
+        }
+    }
+
+    public void OnClickBackToTitle()
+    {
+        
     }
 }

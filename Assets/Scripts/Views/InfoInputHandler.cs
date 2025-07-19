@@ -15,12 +15,14 @@ public class InfoInputHandler : MonoBehaviour
 
     private ImageExtractor _imageExtractor;
     private PromptFormatter _promptFormatter;
+    private CardInfoDisplay _cardInfoDisplay;
     
     // Start is called before the first frame update
     void Start()
     {
         _imageExtractor = new ImageExtractor();
         _promptFormatter = new PromptFormatter();
+        _cardInfoDisplay = GetComponent<CardInfoDisplay>();
     }
 
     // Update is called once per frame
@@ -48,10 +50,6 @@ public class InfoInputHandler : MonoBehaviour
                     new Vector2(0.5f, 0.5f)
                 );
                 imageChosen.sprite = sprite;
-
-                // 必要に応じて次のパネル切り替えなど
-                // imageSelectionPanel.SetActive(false);
-                // cardGeneratingPanel.SetActive(true);
             },
             errorMsg =>
             {
@@ -63,12 +61,21 @@ public class InfoInputHandler : MonoBehaviour
     }
 
     // 「この内容で作成する」ボタンが押されたら実行される
-    public void OnClickSubmitCard()
+    public async void OnClickSubmitCard()
     {
-        string cardTitle = cardTitleText.text.ToString();
-        string cardExplanation = cardExplanationText.text.ToString();
+        string cardTitle = cardTitleText.text;
+        string cardExplanation = cardExplanationText.text;
         Texture2D tex = imageChosen.sprite.texture;
         
-        _promptFormatter.OrganizePrompt(cardTitle, cardExplanation, tex);
+        // カード作成中画面に切り替えてレスポンスを待つ
+        imageSelectionPanel.SetActive(false);
+        cardGeneratingPanel.SetActive(true);
+        var cardData = await _promptFormatter.OrganizePrompt(cardTitle, cardExplanation, tex);
+        
+        // レスポンスを反映させてカード結果画面に切り替える
+        _cardInfoDisplay.DisplayCardData(cardData, cardTitle, tex);
+        cardGeneratingPanel.SetActive(false);
+        cardResultPanel.SetActive(true);
+        
     } 
 }
