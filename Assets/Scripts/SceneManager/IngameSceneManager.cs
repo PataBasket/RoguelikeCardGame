@@ -13,7 +13,7 @@ public class IngameSceneManager : MonoBehaviour
         Title,
         Lobby,
         EditDeck,
-        CreateCard,
+        CardGeneration,
         Map,
         Battle,
         GameClear,

@@ -6,24 +6,16 @@ using UnityEngine.UI;
 public class BattleSceneManager : MonoBehaviour
 {
     [SerializeField]
-    private Button clearButton;
-    [SerializeField]
-    private Button overButton;
+    private Button robbyButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        clearButton?.onClick.AddListener(OnClearButtonClicked);
-        overButton?.onClick.AddListener(OnOverButtonClicked);
+        robbyButton?.onClick.AddListener(OnRobbyButtonClicked);
     }
 
-    private void OnClearButtonClicked()
+    private void OnRobbyButtonClicked()
     {
-        IngameSceneManager.Instance.ChangeScene(IngameSceneManager.InGameState.GameClear);
-    }
-
-    private void OnOverButtonClicked()
-    {
-        IngameSceneManager.Instance.ChangeScene(IngameSceneManager.InGameState.GameOver);
+        IngameSceneManager.Instance.ChangeScene(IngameSceneManager.InGameState.Lobby);
     }
 }
