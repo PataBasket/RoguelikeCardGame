@@ -46,8 +46,11 @@ public class CardController : MonoBehaviour
             imageId     = imageId,
             title       = title,
             intellect   = data.intellect,
+            intellect_attack = data.intellect_attack,
             athleticism = data.athleticism,
+            athleticism_attack = data.athleticism_attack,
             luck        = data.luck,
+            luck_attack = data.luck_attack,
             flavor_text = data.flavor_text,
             createdAt   = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
             imageUrl    = url

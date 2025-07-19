@@ -36,9 +36,9 @@ public class BattlePresenter : MonoBehaviour
                 var selectedCard = cardSelectManager.SelectedCard.Value;
                 InitialPlayerStatus = new BattleModel.CharacterStatus(
                     selectedCard.hp,
-                    selectedCard.attackRock,
-                    selectedCard.attackScissors,
-                    selectedCard.attackPaper
+                    selectedCard.intellect,
+                    selectedCard.athleticism,
+                    selectedCard.luck
                 );
             }
             else

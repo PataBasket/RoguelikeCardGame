@@ -18,21 +18,22 @@ public class CardSelectionCanvasView : MonoBehaviour
     [SerializeField] private Image modalCardImage;
     [SerializeField] private Text modalCardTitleText;
     [SerializeField] private Text modalCardDescriptionText;
-    [SerializeField] private Text modalCardStatsText; // HP, 攻撃力などを表示
+    
     [SerializeField] private Button modalAddToDeckButton; // モーダル内の「登録」ボタン
     [SerializeField] private Button modalCloseButton; // モーダル内の「閉じる」ボタン
 
     [SerializeField] private GameObject SelectCardCanvas; // バトル開始画面のキャンバス
     [SerializeField] private GameObject BattleCanvas; // バトル開始画面のキャンバス
     [SerializeField] private Button confirmBattleButton; // メインの「バトル開始」ボタン
+    
+    [Header("3パラメータのUIオブジェクト")]
+    [SerializeField] private Text modalCardStatsText; // HP, 攻撃力などを表示
 
     // イベント発行用Subject
-    public Subject<CardSequence.CardData> OnCardListItemSelected = new Subject<CardSequence.CardData>();
-    public Subject<CardSequence.CardData> OnModalAddToDeckClicked = new Subject<CardSequence.CardData>();
+    public Subject<CardSelectManager.CardInfo> OnCardListItemSelected = new Subject<CardSelectManager.CardInfo>();
+    public Subject<CardSelectManager.CardInfo> OnModalAddToDeckClicked = new Subject<CardSelectManager.CardInfo>();
     public IObservable<Unit> OnModalCloseClicked => modalCloseButton.OnClickAsObservable();
     public IObservable<Unit> OnConfirmBattleClicked => confirmBattleButton.OnClickAsObservable();
-
-    private CardSequence.CardData _currentModalCardData;
 
     void Awake()
     {
@@ -44,14 +45,14 @@ public class CardSelectionCanvasView : MonoBehaviour
         SetSelectedDeckCard(null);
     }
 
-    public void PopulateScrollView(CardSequence.CardData[] allAvailableCards)
+    public void PopulateScrollView(CardSelectManager.CardInfo[] allAvailableCards)
     {
         foreach (Transform child in scrollViewContent)
         {
             Destroy(child.gameObject);
         }
 
-        foreach (CardSequence.CardData card in allAvailableCards)
+        foreach (CardSelectManager.CardInfo card in allAvailableCards)
         {
             GameObject itemObject = Instantiate(cardListItemPrefab, scrollViewContent);
             Image cardImage = itemObject.transform.Find("Image").GetComponent<Image>();
@@ -73,7 +74,9 @@ public class CardSelectionCanvasView : MonoBehaviour
         }
     }
 
-    public void SetSelectedDeckCard(CardSequence.CardData cardData)
+    private CardSelectManager.CardInfo _currentModalCardData;
+
+    public void SetSelectedDeckCard(CardSelectManager.CardInfo cardData)
     {
         if (cardData != null)
         {
@@ -89,13 +92,13 @@ public class CardSelectionCanvasView : MonoBehaviour
         }
     }
 
-    public void ShowModalPanel(CardSequence.CardData cardData)
+    public void ShowModalPanel(CardSelectManager.CardInfo cardData)
     {
         _currentModalCardData = cardData;
         modalCardImage.sprite = cardData.cardImage;
         modalCardTitleText.text = cardData.cardTitle;
         modalCardDescriptionText.text = cardData.description;
-        modalCardStatsText.text = $"HP: {cardData.hp}\nRock Atk: {cardData.attackRock}\nScissors Atk: {cardData.attackScissors}\nPaper Atk: {cardData.attackPaper}";
+        modalCardStatsText.text = $"HP: {cardData.hp}\nRock Atk: {cardData.intellect}\nScissors Atk: {cardData.athleticism}\nPaper Atk: {cardData.luck}";
         modalPanelObject.SetActive(true);
     }
 
