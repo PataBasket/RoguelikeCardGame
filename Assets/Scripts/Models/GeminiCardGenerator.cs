@@ -91,7 +91,7 @@ public class GeminiCardGenerator
         Debug.Log("Cleaned JSON:\n" + cleaned);
 
         var card = JsonUtility.FromJson<CardData>(cleaned);
-        Debug.Log($"Parsed → 頭脳:{card.intellect} 運動:{card.athleticism} 運:{card.luck} テキスト:'{card.flavor_text}'");
+        Debug.Log($"Parsed → 頭脳:{card.intellect} 頭脳攻撃:{card.intellect_attack} 運動:{card.athleticism} 運動攻撃:{card.athleticism_attack} 運:{card.luck} 運攻撃:{card.luck_attack} テキスト:'{card.flavor_text}'");
         return card;
     }
 
@@ -143,8 +143,11 @@ public class GeminiCardGenerator
     public class CardData
     {
         public int    intellect;
+        public string intellect_attack;
         public int    athleticism;
+        public string athleticism_attack;
         public int    luck;
+        public string luck_attack;
         public string flavor_text;
     }
 }

@@ -28,9 +28,9 @@ public class CardInfoDisplay : MonoBehaviour
 
         // Inspector にセットした Text コンポーネントに出力
         if (titleText       != null) titleText.text       = cardTitleText;
-        if (intellectText   != null) intellectText.text   = $"頭脳: {data.intellect}";
-        if (athleticismText != null) athleticismText.text = $"運動: {data.athleticism}";
-        if (luckText        != null) luckText.text        = $"運: {data.luck}";
+        if (intellectText   != null) intellectText.text   = $"頭脳: {data.intellect} {data.intellect_attack}";
+        if (athleticismText != null) athleticismText.text = $"運動: {data.athleticism} {data.athleticism_attack}";
+        if (luckText        != null) luckText.text        = $"　運: {data.luck} {data.luck_attack}";
         if (flavorText      != null) flavorText.text      = data.flavor_text;
         
         // Texture2D → Sprite に変換
