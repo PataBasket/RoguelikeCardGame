@@ -18,6 +18,7 @@ public static class CardDatabase
         await newRef.SetRawJsonValueAsync(json);
     }
     
+    // このメソッド呼べばカード取ってこれる
     public static async UniTask<List<CardRecord>> LoadMyCardsAsync()
     {
         var myId    = LocalUser.GetLocalUserId();
