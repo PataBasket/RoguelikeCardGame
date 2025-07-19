@@ -135,9 +135,18 @@ public class CardSelectionCanvasView : MonoBehaviour
     {
         SoundManager.Instance?.PlayBGM(SoundManager.BGMData.BGMTYPE.Battle);
 
+        ChildDestroy();
         BattleCanvas.SetActive(true);
         HideModalPanel();
         SelectCardCanvas.SetActive(false);
+    }
+
+    public void ChildDestroy()
+    {
+        foreach (Transform child in scrollViewContent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     void OnDestroy()
