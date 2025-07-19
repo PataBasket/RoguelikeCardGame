@@ -13,6 +13,8 @@ public class InfoInputHandler : MonoBehaviour
     [SerializeField] private Text cardExplanationText;
     [SerializeField] private Image imageChosen;
 
+    [SerializeField] private Text errorMessage;
+
     private ImageExtractor _imageExtractor;
     private PromptFormatter _promptFormatter;
     private CardInfoDisplay _cardInfoDisplay;
@@ -45,6 +47,7 @@ public class InfoInputHandler : MonoBehaviour
         _imageExtractor.ExtractImage(
             texture =>
             {
+                errorMessage.gameObject.SetActive(false);
                 // Texture2D → Sprite に変換
                 var sprite = Sprite.Create(
                     texture,
@@ -56,8 +59,8 @@ public class InfoInputHandler : MonoBehaviour
             errorMsg =>
             {
                 Debug.LogError(errorMsg);
-                // ここでUI上にエラーメッセージを出してもOK
-                // 例：専用の Text を用意して errorMsg を表示する
+                errorMessage.gameObject.SetActive(true);
+                errorMessage.text = errorMsg;
             }
         );
     }
