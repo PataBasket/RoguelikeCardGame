@@ -21,6 +21,7 @@ public class BattlePresenter : MonoBehaviour
     private const int TurnPenalty = 10; // 1ターンあたりの減点
     private const int DrawPenalty = 50; // 引き分け1回あたりの減点
     private const int LossPenalty = 100; // プレイヤーの敗北1回あたりの減点
+    private int finalScore = BaseScore;
 
     void Awake()
     {
@@ -102,7 +103,7 @@ public class BattlePresenter : MonoBehaviour
             Debug.Log("ゲームクリア！");
             CalculateAndDisplayScore(); // ゲームクリア時にスコアを算出
             // ゲームクリア時の処理
-            playerView.UpdateResult(true, BaseScore); // 仮のスコアを表示
+            playerView.UpdateResult(true, finalScore); // 仮のスコアを表示
         }
     }
 
@@ -116,19 +117,19 @@ public class BattlePresenter : MonoBehaviour
         // ・負けやあいこがより少ない方が高得点
         // ・ストレートに全勝で勝った時が最も高得点になるように
         // ・計算には勝つまでのターン数と、各手の出した回数（から派生する勝敗・引き分け数）のみを使用
-        int score = BaseScore;
+        finalScore = BaseScore;
 
         // ターン数による減点
-        score -= (battleModel.TurnCount * TurnPenalty);
+        finalScore -= (battleModel.TurnCount * TurnPenalty);
 
         // 引き分けによる減点
-        score -= (battleModel.DrawCount * DrawPenalty);
+        finalScore -= (battleModel.DrawCount * DrawPenalty);
 
         // プレイヤーの敗北（敵の勝利）による減点
-        score -= (battleModel.EnemyWinCount * LossPenalty);
+        finalScore -= (battleModel.EnemyWinCount * LossPenalty);
 
         // スコアがマイナスにならないように最小値を0に設定
-        score = Mathf.Max(0, score);
+        finalScore = Mathf.Max(0, finalScore);
 
         Debug.Log($"--- ゲームクリア！スコア算出 ---");
         Debug.Log($"総ターン数: {battleModel.TurnCount}");
@@ -136,7 +137,7 @@ public class BattlePresenter : MonoBehaviour
         Debug.Log($"敵勝利数 (プレイヤー敗北数): {battleModel.EnemyWinCount}");
         Debug.Log($"引き分け数: {battleModel.DrawCount}");
         Debug.Log($"プレイヤーが出した手: グー({battleModel.PlayerHandCounts[BattleModel.HandType.Rock]}) チョキ({battleModel.PlayerHandCounts[BattleModel.HandType.Scissors]}) パー({battleModel.PlayerHandCounts[BattleModel.HandType.Paper]})");
-        Debug.Log($"最終スコア: {score}");
+        Debug.Log($"最終スコア: {finalScore}");
 
         // TODO: 実際のゲームでは、このスコアをGameClearSceneに渡して表示するなどしてください。
         // 例: PlayerPrefs.SetInt("LastGameScore", score);
