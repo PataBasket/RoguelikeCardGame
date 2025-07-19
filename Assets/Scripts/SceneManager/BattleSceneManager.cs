@@ -16,6 +16,7 @@ public class BattleSceneManager : MonoBehaviour
 
     private void OnRobbyButtonClicked()
     {
+        SoundManager.Instance?.PlayBGM(SoundManager.BGMData.BGMTYPE.Title);
         IngameSceneManager.Instance.ChangeScene(IngameSceneManager.InGameState.Lobby);
     }
 }

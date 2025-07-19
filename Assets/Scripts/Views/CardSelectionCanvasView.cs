@@ -101,6 +101,7 @@ public class CardSelectionCanvasView : MonoBehaviour
 
     public void HideModalPanel()
     {
+        SoundManager.Instance?.PlaySE(SoundManager.SEData.SETYPE.NormalButton);
         modalPanelObject.SetActive(false);
         _currentModalCardData = null;
     }
@@ -112,6 +113,8 @@ public class CardSelectionCanvasView : MonoBehaviour
 
     public void BattleStart()
     {
+        SoundManager.Instance?.PlayBGM(SoundManager.BGMData.BGMTYPE.Battle);
+
         BattleCanvas.SetActive(true);
         HideModalPanel();
         SelectCardCanvas.SetActive(false);

@@ -68,6 +68,9 @@ public class InfoInputHandler : MonoBehaviour
     // 「この内容で作成する」ボタンが押されたら実行される
     public async void OnClickSubmitCard()
     {
+        SoundManager.Instance?.PlayBGM(SoundManager.BGMData.BGMTYPE.CardCreate);
+        SoundManager.Instance?.PlaySE(SoundManager.SEData.SETYPE.CardCreateButton);
+
         string cardTitle = cardTitleText.text;
         string cardExplanation = cardExplanationText.text;
         Texture2D tex = imageChosen.sprite.texture;

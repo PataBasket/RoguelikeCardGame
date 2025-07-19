@@ -15,6 +15,8 @@ public class TitleSceneManager : MonoBehaviour
     {
         startButton?.onClick.AddListener(OnStartButtonClicked);
         configButton?.onClick.AddListener(OnConfigButtonClicked);
+
+        SoundManager.Instance?.PlayBGM(SoundManager.BGMData.BGMTYPE.Title);
     }
 
     private void OnStartButtonClicked()
