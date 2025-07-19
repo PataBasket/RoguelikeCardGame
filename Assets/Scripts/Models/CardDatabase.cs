@@ -43,8 +43,11 @@ public static class CardDatabase
         public string imageId;
         public string title;
         public int intellect;
+        public string intellect_attack;
         public int athleticism;
+        public string athleticism_attack;
         public int luck;
+        public string luck_attack;
         public string flavor_text;
         public string imageUrl;  // ← ここに Storage の URL を格納
         public long createdAt; 

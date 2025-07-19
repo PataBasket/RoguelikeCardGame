@@ -2,47 +2,70 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-
-[CreateAssetMenu(fileName = "NewCardData", menuName = "Card Game/Card Data")]
-public class CardSequence : ScriptableObject
-{
-    [System.Serializable]
-    public class CardData
-    {
-        public string cardTitle;
-        public Sprite cardImage;
-        public int hp;
-        public int attackRock;    // グーの攻撃力
-        public int attackScissors; // チョキの攻撃力
-        public int attackPaper;   // パーの攻撃力
-        public string description; // カードの説明
-    }
-
-    public List<CardData> notes = new List<CardData>();
-}
+using UnityEngine.Networking;
 
 public class CardSelectManager : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField] private CardSelectionCanvasView cardSelectionCanvasView; // Viewへの参照
-    [SerializeField] private CardSequence.CardData[] allAvailableCards; // 利用可能な全カードデータ (ScriptableObject)
-
+    private CardInfo[] allAvailableCards = new CardInfo[0]; // 利用可能な全カードデータ (ScriptableObject)
+    
     // PlayerPrefsで使用するキー
     private const string PLAYER_PREFS_LAST_SELECTED_CARD_TITLE_KEY = "LastSelectedCardTitle";
-
+    
     // 選択されたカードデータを外部に公開
-    public ReadOnlyReactiveProperty<CardSequence.CardData> SelectedCard { get; private set; }
-    private ReactiveProperty<CardSequence.CardData> _selectedCard = new ReactiveProperty<CardSequence.CardData>();
+    public ReadOnlyReactiveProperty<CardInfo> SelectedCard { get; private set; }
+    private ReactiveProperty<CardInfo> _selectedCard = new ReactiveProperty<CardInfo>();
 
     void Awake()
     {
         SelectedCard = _selectedCard.ToReadOnlyReactiveProperty();
     }
 
-    void Start()
+    async UniTaskVoid Start()
     {
+        // 1) Firebaseからロードする
+        var records = await CardDatabase.LoadMyCardsAsync();
+        
+        // 2) CardInfoにマッピング＆画像読み込み
+        var infos = new List<CardInfo>();
+        foreach (var rec in records)
+        {
+            var info = new CardInfo {
+                cardTitle         = rec.title,
+                hp                = rec.intellect,      // サンプル：hp フィールドに intellect を流用
+                intellect         = rec.intellect,
+                intellect_skill   = rec.intellect_attack,
+                athleticism       = rec.athleticism,
+                athleticism_skill = rec.athleticism_attack,
+                luck              = rec.luck,
+                luck_skill        = rec.luck_attack,
+                description       = rec.flavor_text
+            };
+
+            if (!string.IsNullOrEmpty(rec.imageUrl))
+            {
+                var uwr = UnityWebRequestTexture.GetTexture(rec.imageUrl);
+                await uwr.SendWebRequest();
+                if (!uwr.isNetworkError && !uwr.isHttpError)
+                {
+                    var tex = DownloadHandlerTexture.GetContent(uwr);
+                    info.cardImage = Sprite.Create(
+                        tex,
+                        new Rect(0, 0, tex.width, tex.height),
+                        new Vector2(0.5f, 0.5f)
+                    );
+                }
+            }
+            
+            infos.Add(info);
+        }
+
+        allAvailableCards = infos.ToArray();
+        
         // Viewの初期設定
         cardSelectionCanvasView.PopulateScrollView(allAvailableCards); // 利用可能なカードをスクロールビューに表示
 
@@ -65,7 +88,7 @@ public class CardSelectManager : MonoBehaviour
     /// モーダルからカードが選択され、「登録」ボタンが押された際の処理。
     /// </summary>
     /// <param name="cardData">選択されたカードデータ</param>
-    private void HandleCardSelection(CardSequence.CardData cardData)
+    private void HandleCardSelection(CardInfo cardData)
     {
         _selectedCard.Value = cardData; // ReactivePropertyの値を更新
         cardSelectionCanvasView.SetSelectedDeckCard(_selectedCard.Value); // 選択されたカードをデッキスロットに表示
@@ -86,7 +109,7 @@ public class CardSelectManager : MonoBehaviour
         string cardTitle = PlayerPrefs.GetString(PLAYER_PREFS_LAST_SELECTED_CARD_TITLE_KEY, "");
         if (!string.IsNullOrEmpty(cardTitle))
         {
-            CardSequence.CardData loadedCard = Array.Find(allAvailableCards, card => card.cardTitle == cardTitle);
+            CardInfo loadedCard = Array.Find(allAvailableCards, card => card.cardTitle == cardTitle);
             if (loadedCard != null)
             {
                 _selectedCard.Value = loadedCard;
@@ -97,5 +120,20 @@ public class CardSelectManager : MonoBehaviour
                 Debug.LogWarning($"PlayerPrefsからカード '{cardTitle}' をロードできませんでした。");
             }
         }
+    }
+    
+    [System.Serializable]
+    public class CardInfo
+    {
+        public string cardTitle;
+        public Sprite cardImage;
+        public int hp;
+        public int intellect;    // 頭脳の攻撃力
+        public string intellect_skill; // 頭脳の攻撃名
+        public int athleticism; // 運動の攻撃力
+        public string athleticism_skill;　// 運動の攻撃名
+        public int luck;   // 運の攻撃力
+        public string luck_skill;　// 運の攻撃名
+        public string description; // カードの説明
     }
 }
