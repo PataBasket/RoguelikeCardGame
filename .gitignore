@@ -98,8 +98,5 @@ InitTestScene*.unity*
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
-# not including personal photos
-/[Aa]ssets/[Ii]mages/
-
 /[Aa]ssets/[Rr]esources/ApiConfig.json
 /[Aa]ssets/[Rr]esources/ApiConfig.json.meta
