@@ -29,6 +29,14 @@
         "com.google.firebase.app": "12.10.0"
       }
     },
+    "com.google.firebase.database": {
+      "version": "file:../ExternalPackages/com.google.firebase.database-12.10.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.google.firebase.auth": "12.10.0"
+      }
+    },
     "com.google.firebase.storage": {
       "version": "file:../ExternalPackages/com.google.firebase.storage-12.10.0.tgz",
       "depth": 0,
