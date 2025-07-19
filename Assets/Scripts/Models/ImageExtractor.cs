@@ -24,7 +24,7 @@ public class ImageExtractor
         path = EditorUtility.OpenFilePanel("画像を選択", "", "png,jpg,jpeg");
         if (string.IsNullOrEmpty(path))
         {
-            onError?.Invoke("ファイルが選択されませんでした。");
+            onError?.Invoke("ファイルが選択されませんでした");
             return;
         }
         #else
@@ -35,7 +35,7 @@ public class ImageExtractor
         var paths = StandaloneFileBrowser.OpenFilePanel("画像を選択", "", extensions, false);
         if (paths == null || paths.Length == 0 || string.IsNullOrEmpty(paths[0]))
         {
-            onError?.Invoke("ファイルが選択されませんでした。");
+            onError?.Invoke("ファイルが選択されませんでした");
             return;
         }
         path = paths[0];
@@ -45,7 +45,7 @@ public class ImageExtractor
         string ext = Path.GetExtension(path).ToLower();
         if (ext != ".png" && ext != ".jpg" && ext != ".jpeg")
         {
-            onError?.Invoke("png/jpg/jpeg 以外のファイルは選択できません。");
+            onError?.Invoke("png/jpg/jpeg 以外のファイルは選択できません");
             return;
         }
 
@@ -63,7 +63,7 @@ public class ImageExtractor
         var tex = new Texture2D(2, 2);
         if (!tex.LoadImage(data))
         {
-            onError?.Invoke("画像データのデコードに失敗しました。");
+            onError?.Invoke("画像データのデコードに失敗しました");
             return;
         }
 
@@ -82,8 +82,8 @@ public class ImageExtractor
             string simplified = $"{w/gcd}:{h/gcd}";
 
             onError?.Invoke(
-                $"アスペクト比が3:4ではありません。\n" +
-                $"実際の比率: {ratioStr} (幅:高さ = {simplified})"
+                $"画像比率が縦3:横4ではありません\n"
+                // $"実際の比率: {ratioStr} (幅:高さ = {simplified})"
             );
             return;
         }
