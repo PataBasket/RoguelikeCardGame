@@ -35,11 +35,15 @@ public class CardController : MonoBehaviour
         // 2) 画像アップロード
         string fileName = $"{Guid.NewGuid()}.png";
         string url = await StorageHelper.UploadTextureAsync(tex, fileName);
+        
+        // 3) 画像ID作成
+        string imageId = Guid.NewGuid().ToString();
 
         // 3) モデルにマップ
         var record = new CardDatabase.CardRecord
         {
             authorId    = LocalUser.GetLocalUserId(),
+            imageId     = imageId,
             title       = title,
             intellect   = data.intellect,
             athleticism = data.athleticism,

@@ -40,6 +40,7 @@ public static class CardDatabase
     public class CardRecord
     {
         public string authorId;
+        public string imageId;
         public string title;
         public int intellect;
         public int athleticism;
