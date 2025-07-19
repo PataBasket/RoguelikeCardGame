@@ -752,7 +752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &787864651
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1950,6 +1950,7 @@ GameObject:
   - component: {fileID: 1823863548}
   - component: {fileID: 1823863549}
   - component: {fileID: 1823863550}
+  - component: {fileID: 1823863551}
   m_Layer: 0
   m_Name: CardGenerationManager
   m_TagString: Untagged
@@ -2008,6 +2009,19 @@ MonoBehaviour:
   athleticismText: {fileID: 697424338}
   luckText: {fileID: 468357666}
   flavorText: {fileID: 1834637326}
+--- !u!114 &1823863551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823863547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6526f9e62bc286a46bacbb0da68c372c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardInfoDisplay: {fileID: 1823863550}
 --- !u!114 &1834637326 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5434897542779931735, guid: fe53befb430956f4cb26118cc55bd223, type: 3}
@@ -2499,7 +2513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2046895496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2790,6 +2804,10 @@ PrefabInstance:
     - target: {fileID: 2740929543772845862, guid: fe53befb430956f4cb26118cc55bd223, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9083449771668893487, guid: fe53befb430956f4cb26118cc55bd223, type: 3}
+      propertyPath: m_Text
+      value: "\u982D\u8133\uFF1A"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

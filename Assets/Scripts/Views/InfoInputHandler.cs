@@ -16,6 +16,7 @@ public class InfoInputHandler : MonoBehaviour
     private ImageExtractor _imageExtractor;
     private PromptFormatter _promptFormatter;
     private CardInfoDisplay _cardInfoDisplay;
+    private CardController _cardController;
     
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class InfoInputHandler : MonoBehaviour
         _imageExtractor = new ImageExtractor();
         _promptFormatter = new PromptFormatter();
         _cardInfoDisplay = GetComponent<CardInfoDisplay>();
+        _cardController = GetComponent<CardController>();
     }
 
     // Update is called once per frame
@@ -72,10 +74,15 @@ public class InfoInputHandler : MonoBehaviour
         cardGeneratingPanel.SetActive(true);
         var cardData = await _promptFormatter.OrganizePrompt(cardTitle, cardExplanation, tex);
         
-        // レスポンスを反映させてカード結果画面に切り替える
-        _cardInfoDisplay.DisplayCardData(cardData, cardTitle, tex);
+        // レスポンスを反映させてカードをデータベースに保存
         cardGeneratingPanel.SetActive(false);
         cardResultPanel.SetActive(true);
         
-    } 
+        await _cardController.OnCardGenerated(cardData, cardTitle, tex);
+    }
+
+    public void OnClickBackToTitle()
+    {
+        
+    }
 }
