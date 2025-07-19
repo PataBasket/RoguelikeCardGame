@@ -10,6 +10,8 @@ public class BattlePresenter : MonoBehaviour
     [SerializeField] private PlayerBattleView playerView;
     [SerializeField] private EnemyBattleView enemyView;
 
+    [SerializeField] private CardSelectManager cardSelectManager; // カード選択マネージャーへの参照
+
     private BattleModel battleModel;
 
     // 別のシーンからステータスを更新する場合のダミーデータ
@@ -28,7 +30,22 @@ public class BattlePresenter : MonoBehaviour
         // 初期ステータスが設定されていなければデフォルト値を設定
         if (InitialPlayerStatus == null)
         {
-            InitialPlayerStatus = new BattleModel.CharacterStatus(100, 20, 25, 30); // HP, グー, チョキ, パー
+            if (cardSelectManager.SelectedCard.Value != null)
+            {
+                // 選択されたカードのデータを基に初期ステータスを設定
+                var selectedCard = cardSelectManager.SelectedCard.Value;
+                InitialPlayerStatus = new BattleModel.CharacterStatus(
+                    selectedCard.hp,
+                    selectedCard.attackRock,
+                    selectedCard.attackScissors,
+                    selectedCard.attackPaper
+                );
+            }
+            else
+            {
+                // デフォルトの初期ステータスを設定
+                InitialPlayerStatus = new BattleModel.CharacterStatus(100, 20, 25, 30); // HP, グー, チョキ, パー
+            }
         }
         if (InitialEnemyStatus == null)
         {
