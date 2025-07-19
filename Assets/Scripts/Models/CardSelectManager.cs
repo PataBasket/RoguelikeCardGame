@@ -27,6 +27,8 @@ public class CardSelectManager : MonoBehaviour
 
     async UniTaskVoid Start()
     {
+        // 1) カードデータをロード
+        cardSelectionCanvasView.ShowLoadPanel(true); // ロードパネルを表示
         // 1) Firebaseからロードする
         var records = await CardDatabase.LoadMyCardsAsync();
         
@@ -68,6 +70,7 @@ public class CardSelectManager : MonoBehaviour
         
         // Viewの初期設定
         cardSelectionCanvasView.PopulateScrollView(allAvailableCards); // 利用可能なカードをスクロールビューに表示
+        cardSelectionCanvasView.ShowLoadPanel(false); // ロードパネルを非表示
 
         // Viewからのイベント購読
         cardSelectionCanvasView.OnCardListItemSelected
@@ -133,9 +136,9 @@ public class CardSelectManager : MonoBehaviour
         public int intellect;    // 頭脳の攻撃力
         public string intellect_skill; // 頭脳の攻撃名
         public int athleticism; // 運動の攻撃力
-        public string athleticism_skill;　// 運動の攻撃名
+        public string athleticism_skill; // 運動の攻撃名
         public int luck;   // 運の攻撃力
-        public string luck_skill;　// 運の攻撃名
+        public string luck_skill; // 運の攻撃名
         public string description; // カードの説明
     }
 }
