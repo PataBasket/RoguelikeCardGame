@@ -44,4 +44,9 @@ public class CardInfoDisplay : MonoBehaviour
             mainImage.sprite = sprite;
         }
     }
+
+    public void OnClickBackToTitle()
+    {
+        
+    }
 }
