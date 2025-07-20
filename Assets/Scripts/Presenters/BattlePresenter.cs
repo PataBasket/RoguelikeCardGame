@@ -77,6 +77,14 @@ public class BattlePresenter : MonoBehaviour
         battleModel.enemyHand
             .Subscribe(enemyHand => enemyView.UpdateAttackText(enemyHand))
             .AddTo(this);
+        
+        battleModel.PlayerSuccess
+            .Subscribe(_ => playerView.SuccessAttack())
+            .AddTo(this);
+        
+        battleModel.EnemySuccess
+            .Subscribe(_ => enemyView.SuccessAttack())
+            .AddTo(this);
 
         // プレイヤーのボタン入力を購読
         playerView.OnRockButtonClick
