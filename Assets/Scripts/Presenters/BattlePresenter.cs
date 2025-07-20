@@ -34,9 +34,9 @@ public class BattlePresenter : MonoBehaviour
             var selectedCard = cardSelectManager.SelectedCard.Value;
             InitialPlayerStatus = new BattleModel.CharacterStatus(
                 selectedCard.hp,
-                selectedCard.intellect,
                 selectedCard.athleticism,
-                selectedCard.luck
+                selectedCard.luck,
+                selectedCard.intellect
             );
         }
         else
@@ -56,7 +56,9 @@ public class BattlePresenter : MonoBehaviour
     void Start()
     {
         // Viewの初期化
-        playerView.Initialize();
+        var selectedCard = cardSelectManager.SelectedCard.Value;
+        playerView.Initialize(selectedCard.cardImage, selectedCard.cardTitle,
+            selectedCard.athleticism, selectedCard.luck, selectedCard.intellect, selectedCard.athleticism_skill, selectedCard.luck_skill, selectedCard.intellect_skill);
         enemyView.Initialize();
 
         // HPの購読
@@ -66,6 +68,14 @@ public class BattlePresenter : MonoBehaviour
 
         battleModel.EnemyStatus.HP
             .Subscribe(hp => enemyView.UpdateHPText(hp))
+            .AddTo(this);
+        
+        battleModel.playerViewHand
+            .Subscribe(hand => playerView.UpdateAttackText(hand))
+            .AddTo(this);
+
+        battleModel.enemyHand
+            .Subscribe(enemyHand => enemyView.UpdateAttackText(enemyHand))
             .AddTo(this);
 
         // プレイヤーのボタン入力を購読

@@ -43,6 +43,9 @@ public class BattleModel
     // 各手の出した回数を記録
     public Dictionary<HandType, int> PlayerHandCounts { get; private set; }
 
+    public ReactiveProperty<HandType> enemyHand = new ReactiveProperty<HandType>(HandType.Rock); // 敵の手をReactivePropertyで管理
+    public ReactiveProperty<HandType> playerViewHand = new ReactiveProperty<HandType>(HandType.Rock); // 敵の手をReactivePropertyで管理
+
     public BattleModel(CharacterStatus playerStatus, CharacterStatus enemyStatus)
     {
         PlayerStatus = playerStatus;
@@ -65,21 +68,23 @@ public class BattleModel
         TurnCount++; // ターン数をインクリメント
         PlayerHandCounts[playerHand]++; // プレイヤーが出した手の回数を記録
 
-        HandType enemyHand = GetRandomEnemyHand();
+        enemyHand.Value = GetRandomEnemyHand();
+        playerViewHand.Value = playerHand; // プレイヤーの手を更新
         Debug.Log($"プレイヤーの手: {playerHand}, 敵の手: {enemyHand}");
 
+
         int playerAttack = GetAttackPower(PlayerStatus, playerHand);
-        int enemyAttack = GetAttackPower(EnemyStatus, enemyHand);
+        int enemyAttack = GetAttackPower(EnemyStatus, enemyHand.Value);
 
         // 勝敗判定
-        if (playerHand == enemyHand)
+        if (playerHand == enemyHand.Value)
         {
             Debug.Log("引き分け！");
             DrawCount++; // 引き分け数をインクリメント
         }
-        else if ((playerHand == HandType.Rock && enemyHand == HandType.Scissors) ||
-                 (playerHand == HandType.Scissors && enemyHand == HandType.Paper) ||
-                 (playerHand == HandType.Paper && enemyHand == HandType.Rock))
+        else if ((playerHand == HandType.Rock && enemyHand.Value == HandType.Scissors) ||
+                 (playerHand == HandType.Scissors && enemyHand.Value == HandType.Paper) ||
+                 (playerHand == HandType.Paper && enemyHand.Value == HandType.Rock))
         {
             // プレイヤーの勝ち
             Debug.Log("プレイヤーの勝ち！");
