@@ -33,7 +33,7 @@ public class BattlePresenter : MonoBehaviour
             // 選択されたカードのデータを基に初期ステータスを設定
             var selectedCard = cardSelectManager.SelectedCard.Value;
             InitialPlayerStatus = new BattleModel.CharacterStatus(
-                selectedCard.hp,
+                100,
                 selectedCard.athleticism,
                 selectedCard.luck,
                 selectedCard.intellect
@@ -47,7 +47,7 @@ public class BattlePresenter : MonoBehaviour
 
         if (InitialEnemyStatus == null)
         {
-            InitialEnemyStatus = new BattleModel.CharacterStatus(80, 15, 20, 25); // HP, グー, チョキ, パー
+            InitialEnemyStatus = new BattleModel.CharacterStatus(100, 10, 40, 50); // HP, グー, チョキ, パー
         }
 
         battleModel = new BattleModel(InitialPlayerStatus, InitialEnemyStatus);

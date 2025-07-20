@@ -57,6 +57,8 @@ public class PlayerBattleView : MonoBehaviour
         // 初期HPの表示
         UpdateHPText(100); // 仮の初期値
 
+        Debug.Log($"カード名: {cardName}, グーの攻撃力: {rockPower}, チョキの攻撃力: {scissorsPower}, パーの攻撃力: {paperPower}");
+
         // 結果パネルの非表示
         resultPanel.SetActive(false);
     }
