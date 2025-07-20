@@ -50,7 +50,7 @@ public class GeminiCardGenerator
         });
         string generationConfigJson = JsonUtility.ToJson(new GenerationConfig {
             temperature     = 0.7f,
-            maxOutputTokens = 2048
+            maxOutputTokens = 4096
         });
 
         // 3. parts 配列を完全手動組み立て
