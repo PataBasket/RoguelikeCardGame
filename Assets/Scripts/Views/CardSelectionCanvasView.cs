@@ -28,12 +28,9 @@ public class CardSelectionCanvasView : MonoBehaviour
     [SerializeField] private Button confirmBattleButton; // メインの「バトル開始」ボタン
 
     [Header("3パラメータのUIオブジェクト")]
-    [SerializeField] private Text intellect; // 頭脳の攻撃力
-    [SerializeField] private Text intellect_skill; // 頭脳の攻撃名
-    [SerializeField] private Text athleticism; // 運動の攻撃力
-    [SerializeField] private Text athleticism_skill; // 運動の攻撃名
-    [SerializeField] private Text luck; // 運の攻撃力
-    [SerializeField] private Text luck_skill; // 運の攻撃名 
+    [SerializeField] private Text intellectText; // 頭脳の攻撃力
+    [SerializeField] private Text athleticismText; // 運動の攻撃力
+    [SerializeField] private Text luckText; // 運の攻撃力
 
 
     // イベント発行用Subject
@@ -110,12 +107,9 @@ public class CardSelectionCanvasView : MonoBehaviour
         modalCardImage.sprite = cardData.cardImage;
         modalCardTitleText.text = cardData.cardTitle;
         modalCardDescriptionText.text = cardData.description;
-        intellect.text = cardData.intellect.ToString();
-        intellect_skill.text = cardData.intellect_skill;
-        athleticism.text = cardData.athleticism.ToString();
-        athleticism_skill.text = cardData.athleticism_skill;
-        luck.text = cardData.luck.ToString();
-        luck_skill.text = cardData.luck_skill;
+        if (intellectText   != null) intellectText.text   = $"頭脳: {cardData.intellect} {cardData.intellect_skill}";
+        if (athleticismText != null) athleticismText.text = $"運動: {cardData.athleticism} {cardData.athleticism_skill}";
+        if (luckText        != null) luckText.text        = $"　運: {cardData.luck} {cardData.luck_skill}";
         modalPanelObject.SetActive(true);
     }
 
