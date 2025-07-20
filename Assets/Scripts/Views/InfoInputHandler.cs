@@ -8,6 +8,7 @@ public class InfoInputHandler : MonoBehaviour
     [SerializeField] private GameObject imageSelectionPanel;
     [SerializeField] private GameObject cardGeneratingPanel;
     [SerializeField] private GameObject cardResultPanel;
+    [SerializeField] private GameObject footerPanel;
 
     [SerializeField] private Text cardTitleText;
     [SerializeField] private Text cardExplanationText;
@@ -77,11 +78,13 @@ public class InfoInputHandler : MonoBehaviour
         
         // カード作成中画面に切り替えてレスポンスを待つ
         imageSelectionPanel.SetActive(false);
+        footerPanel.SetActive(false);
         cardGeneratingPanel.SetActive(true);
         var cardData = await _promptFormatter.OrganizePrompt(cardTitle, cardExplanation, tex);
         
         // レスポンスを反映させてカードをデータベースに保存
         cardGeneratingPanel.SetActive(false);
+        footerPanel.SetActive(true);
         cardResultPanel.SetActive(true);
         
         await _cardController.OnCardGenerated(cardData, cardTitle, tex);
