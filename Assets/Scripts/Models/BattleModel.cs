@@ -4,8 +4,19 @@ using UniRx;
 using System;
 using System.Collections.Generic; // Dictionaryを使うために追加
 
-public class BattleModel
+public interface IBattleModel
 {
+    IObservable<Unit> PlayerSuccess { get; }
+    IObservable<Unit> EnemySuccess { get; }
+}
+public class BattleModel: IBattleModel
+{
+    public IObservable<Unit> PlayerSuccess => playerSuccessSubject;
+    public IObservable<Unit> EnemySuccess => enemySuccessSubject;
+
+    private Subject<Unit> playerSuccessSubject = new Subject<Unit>();
+    private Subject<Unit> enemySuccessSubject = new Subject<Unit>();
+
     // 各キャラクターのステータス定義
     public class CharacterStatus
     {
@@ -45,6 +56,8 @@ public class BattleModel
 
     public ReactiveProperty<HandType> enemyHand = new ReactiveProperty<HandType>(HandType.Rock); // 敵の手をReactivePropertyで管理
     public ReactiveProperty<HandType> playerViewHand = new ReactiveProperty<HandType>(HandType.Rock); // 敵の手をReactivePropertyで管理
+
+
 
     public BattleModel(CharacterStatus playerStatus, CharacterStatus enemyStatus)
     {
@@ -90,6 +103,7 @@ public class BattleModel
             Debug.Log("プレイヤーの勝ち！");
             PlayerWinCount++; // プレイヤーの勝利数をインクリメント
             EnemyStatus.TakeDamage(playerAttack);
+            playerSuccessSubject.OnNext(Unit.Default); // プレイヤーの成功を通知
         }
         else
         {
@@ -97,6 +111,7 @@ public class BattleModel
             Debug.Log("敵の勝ち！");
             EnemyWinCount++; // 敵の勝利数（プレイヤーの敗北数）をインクリメント
             PlayerStatus.TakeDamage(enemyAttack);
+            enemySuccessSubject.OnNext(Unit.Default); // 敵の成功を通知
         }
 
         return PlayerStatus.HP.Value <= 0 || EnemyStatus.HP.Value <= 0;
