@@ -17,9 +17,9 @@ public class EnemyBattleView : MonoBehaviour
 
     [SerializeField] private Text attackText;
 
-    private string rockName;
-    private string scissorsName;
-    private string paperName;
+    private string rockName = "伸びた鼻つつき";
+    private string scissorsName = "ラッキーじまんタイム";
+    private string paperName = "学歴マウントトーク";
 
     public void Initialize()
     {
@@ -28,12 +28,8 @@ public class EnemyBattleView : MonoBehaviour
 
     public void UpdateHPText(int hp)
     {
-        hpText.text = $"Enemy HP: {hp}";
-    }
-
-    public void UpdateHPBar(int damage)
-    {
-        hpBar.fillAmount = damage / 100; // 0.0f から 1.0f の値を期待
+        hpText.text = $"{hp}";
+        hpBar.fillAmount = hp / 100; // 0.0f から 1.0f の値を期待
     }
 
     public void UpdateAttackText(BattleModel.HandType handType)
