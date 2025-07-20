@@ -29,7 +29,7 @@ public class EnemyBattleView : MonoBehaviour
     public void UpdateHPText(int hp)
     {
         hpText.text = $"{hp}";
-        hpBar.fillAmount = hp / 100; // 0.0f から 1.0f の値を期待
+        hpBar.fillAmount = hp / 100f; // 0.0f から 1.0f の値を期待
     }
 
     public void UpdateAttackText(BattleModel.HandType handType)
